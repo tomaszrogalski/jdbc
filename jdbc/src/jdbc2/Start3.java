@@ -16,7 +16,9 @@ public class Start3 {
 		Thread newThread2 = new Thread(runnable2);
 		newThread1.start();
 		newThread1.join();
-		//metoda join z klasy Thread powoduje oczekiwanie na zakoñczenie w¹tku
+		// Powy¿sze wywo³anie sprawi, ¿e aktualny w¹tek zawiesi swoje dalsze
+		// wykonywanie, a¿ do momentu gdy w¹tek newThread1 skoñczy siê
+		// wykonywaæ.
 		newThread2.start();
 	}
 }
