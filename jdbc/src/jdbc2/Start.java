@@ -3,19 +3,16 @@ package jdbc2;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.sql.Statement;
 
-import org.omg.CORBA.TRANSACTION_MODE;
-
 public class Start {
 
-	static final String JDBC_DRIVER = "org.postgresql.Driver";
-	static final String DB_URL = "jdbc:postgresql://localhost:5433/cwiczenie2";
-	static final String USER = "postgres";
-	static final String PASS = "adminLWW";
+	public static final String JDBC_DRIVER = "org.postgresql.Driver";
+	public static final String DB_URL = "jdbc:postgresql://localhost:5433/cwiczenie2";
+	public static final String USER = "postgres";
+	public static final String PASS = "adminLWW";
 
 	public static void main(String[] args) throws SQLException {
 
@@ -46,17 +43,19 @@ public class Start {
 
 		Statement zapytania = null;
 
-		zapytania = zadanie1(polaczenie, zapytania);
+		// zapytania = zadanie1(polaczenie, zapytania);
+		//
+		 zapytania = Zadanie2(polaczenie, zapytania);
+		//
+		// zapytania = Zadanie3(polaczenie, zapytania);
+		//
+		// zapytania = Zadanie4(polaczenie, zapytania);
+		//
+		// zapytania = Zadanie5(polaczenie, zapytania);
+		//
+		// zapytania = Zadanie6(polaczenie, zapytania);
 
-		zapytania = Zadanie2(polaczenie, zapytania);
-
-		zapytania = Zadanie3(polaczenie, zapytania);
-
-		zapytania = Zadanie4(polaczenie, zapytania);
-
-		zapytania = Zadanie5(polaczenie, zapytania);
-		
-		zapytania = Zadanie6(polaczenie, zapytania);
+		// zapytania = Zadanie7(polaczenie, zapytania);
 
 		////////////////////////// Zamykanie ////////////////////////
 
@@ -73,9 +72,57 @@ public class Start {
 		/////////////////////////////////////////////////////////////
 	}
 
-	private static Statement Zadanie6(Connection polaczenie, Statement zapytania) {
-		// TODO Auto-generated method stub
-		return null;
+	private static Statement Zadanie7(Connection polaczenie, Statement zapytania) throws SQLException {
+
+		// // W bazie nie ma kolumny imie o wartosci dawid a mimo to ja
+		// znajduje, 1
+		// // transakcja
+		// polaczenie.setTransactionIsolation(polaczenie.TRANSACTION_READ_UNCOMMITTED);
+		// zapytania = polaczenie.createStatement();
+		// polaczenie.setAutoCommit(false);
+		// String sql2 = new String("UPDATE public.test SET imie = 'dawid' WHERE
+		// id=50;");
+		// zapytania.execute(sql2);
+		// ResultSet blabla = zapytania.executeQuery("Select id,imie from
+		// public.test where imie='dawid';");
+		// polaczenie.rollback();
+		// System.out.println("--------------------------------");
+		// while (blabla.next()) {
+		// for (int i = 1; i <= 2; i++) {
+		// if (i > 1)
+		// System.out.print(" ");
+		// String columnValue = blabla.getString(i);
+		// System.out.print(columnValue);
+		// }
+		// }
+		// System.out.println("\n--------------------------------");
+		//
+		 return zapytania;
+	}
+
+	private static Statement Zadanie6(Connection polaczenie, Statement zapytania) throws SQLException {
+		polaczenie.setTransactionIsolation(polaczenie.TRANSACTION_READ_UNCOMMITTED);
+		polaczenie.setAutoCommit(false);
+		zapytania = polaczenie.createStatement();
+		ResultSet rezultatZapytania = zapytania.executeQuery("Select * from public.test;");
+		polaczenie.commit();
+		System.out.println("\n----------------------");
+		System.out.println("Wyswietlenie zapytan:");
+		System.out.println("----------------------\n");
+		while (rezultatZapytania.next()) {
+			for (int i = 1; i < 4; i++) {
+				if (i > 1)
+					System.out.print(" ");
+				String columnValue = rezultatZapytania.getString(i);
+				System.out.print(columnValue);
+			}
+			System.out.println("");
+		}
+
+		System.out.println("\n----------------------");
+
+		System.out.println("----------------------\n");
+		return zapytania;
 	}
 
 	private static Statement Zadanie5(Connection polaczenie, Statement zapytania) {
@@ -84,7 +131,7 @@ public class Start {
 		try {
 			polaczenie.setAutoCommit(false);
 			zapytania = polaczenie.createStatement();
-			zapytania.execute("INSERT INTO public.test(id,imie,nazwisko) VALUES(2001,'imie','nazwisko');");
+			zapytania.execute("INSERT INTO public.test(id,imie,nazwisko) VALUES(661,'imie','nazwisko');");
 			savepoint = polaczenie.setSavepoint("SavePoint1");
 			polaczenie.commit();
 			System.err.println("Insert zrobiony");
@@ -107,7 +154,7 @@ public class Start {
 		try {
 			polaczenie.setAutoCommit(false);
 			zapytania = polaczenie.createStatement();
-			zapytania.execute("INSERT INTO public.test(id,imie,nazwisko) VALUES(3001,'imie','nazwisko');");
+			zapytania.execute("INSERT INTO public.test(id,imie,nazwisko) VALUES(1634,'imie','nazwisko');");
 			polaczenie.commit();
 			System.err.println("Insert zrobiony");
 
@@ -131,7 +178,7 @@ public class Start {
 		// posgresql
 		zapytania = polaczenie.createStatement();
 
-		zapytania.execute("INSERT INTO public.test(id,imie,nazwisko) VALUES(5001,'imie','nazwisko');");
+		zapytania.execute("INSERT INTO public.test(id,imie,nazwisko) VALUES(14312,'imie','nazwisko');");
 
 		polaczenie.commit();
 		// koniec tansakcji
@@ -142,8 +189,8 @@ public class Start {
 		try {
 			zapytania = polaczenie.createStatement();
 
-			zapytania.execute("INSERT INTO public.test(id,imie,nazwisko) VALUES(60003,'imie','nazwisko');");
-
+			zapytania.execute("delete from public.test where id=52");
+			zapytania.execute("INSERT INTO public.test(id,imie,nazwisko) VALUES(2,'franek','nazwisko');");
 			System.out.println("Dodano!");
 		} catch (SQLException e) {
 			System.out.println("Nie Dodano!");
@@ -156,7 +203,7 @@ public class Start {
 
 		zapytania = polaczenie.createStatement();
 
-		zapytania.execute("INSERT INTO public.test(id,imie,nazwisko) VALUES(50035,'imie','nazwisko');");
+		zapytania.execute("INSERT INTO public.test(id,imie,nazwisko) VALUES(5416,'imie','nazwisko');");
 
 		System.out.println("Dodano!");
 		return zapytania;
