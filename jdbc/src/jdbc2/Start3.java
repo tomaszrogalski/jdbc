@@ -6,21 +6,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-//Non-repeatable reads - UDANE
 public class Start3 {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 
-		// for (int i = 0; i <1; i++) {
 		Runnable runnable1 = new MyRunnable1();
 		Thread newThread1 = new Thread(runnable1);
 		Runnable runnable2 = new MyRunnable2();
 		Thread newThread2 = new Thread(runnable2);
 		newThread1.start();
+		newThread1.join();
+		//metoda join z klasy Thread powoduje oczekiwanie na zakoñczenie w¹tku
 		newThread2.start();
-		// }
 	}
-
 }
 
 class MyRunnable1 implements Runnable {
@@ -82,12 +80,12 @@ class MyRunnable1 implements Runnable {
 
 	private static Statement Zadanie7(Connection polaczenie, Statement zapytania) throws SQLException {
 		// polaczenie.setTransactionIsolation(polaczenie.TRANSACTION_READ_UNCOMMITTED);
-		
-		//ROZNE ODCZYTY
-			
-		 // polaczenie.setTransactionIsolation(polaczenie.TRANSACTION_SERIALIZABLE);
-		
-		// A TU TAKIE DAME
+
+		// ROZNE ODCZYTY
+
+		// polaczenie.setTransactionIsolation(polaczenie.TRANSACTION_SERIALIZABLE);
+
+		// A TU TAKIE SAME
 		polaczenie.setAutoCommit(false);
 		zapytania = polaczenie.createStatement();
 
@@ -180,7 +178,7 @@ class MyRunnable2 implements Runnable {
 
 		polaczenie.setAutoCommit(false);
 		zapytania = polaczenie.createStatement();
-		zapytania.execute("UPDATE public.test set imie ='123415' where id=2");
+		zapytania.execute("UPDATE public.test set imie ='123456' where id=2");
 		polaczenie.commit();
 		return zapytania;
 	}

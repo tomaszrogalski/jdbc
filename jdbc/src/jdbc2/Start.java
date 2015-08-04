@@ -45,7 +45,7 @@ public class Start {
 
 		// zapytania = zadanie1(polaczenie, zapytania);
 		//
-		 zapytania = Zadanie2(polaczenie, zapytania);
+		// zapytania = Zadanie2(polaczenie, zapytania);
 		//
 		// zapytania = Zadanie3(polaczenie, zapytania);
 		//
@@ -54,8 +54,6 @@ public class Start {
 		// zapytania = Zadanie5(polaczenie, zapytania);
 		//
 		// zapytania = Zadanie6(polaczenie, zapytania);
-
-		// zapytania = Zadanie7(polaczenie, zapytania);
 
 		////////////////////////// Zamykanie ////////////////////////
 
@@ -70,34 +68,6 @@ public class Start {
 		System.out.print("Zamkniecie OK");
 
 		/////////////////////////////////////////////////////////////
-	}
-
-	private static Statement Zadanie7(Connection polaczenie, Statement zapytania) throws SQLException {
-
-		// // W bazie nie ma kolumny imie o wartosci dawid a mimo to ja
-		// znajduje, 1
-		// // transakcja
-		// polaczenie.setTransactionIsolation(polaczenie.TRANSACTION_READ_UNCOMMITTED);
-		// zapytania = polaczenie.createStatement();
-		// polaczenie.setAutoCommit(false);
-		// String sql2 = new String("UPDATE public.test SET imie = 'dawid' WHERE
-		// id=50;");
-		// zapytania.execute(sql2);
-		// ResultSet blabla = zapytania.executeQuery("Select id,imie from
-		// public.test where imie='dawid';");
-		// polaczenie.rollback();
-		// System.out.println("--------------------------------");
-		// while (blabla.next()) {
-		// for (int i = 1; i <= 2; i++) {
-		// if (i > 1)
-		// System.out.print(" ");
-		// String columnValue = blabla.getString(i);
-		// System.out.print(columnValue);
-		// }
-		// }
-		// System.out.println("\n--------------------------------");
-		//
-		 return zapytania;
 	}
 
 	private static Statement Zadanie6(Connection polaczenie, Statement zapytania) throws SQLException {
